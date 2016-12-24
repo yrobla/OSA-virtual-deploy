@@ -1,0 +1,107 @@
+---
+- hosts: assint
+  remote_user: root
+  vars_files:
+    - ./var/ubuntu.yml
+  tasks:
+  - name: ping
+    shell: /bin/ping 8.8.8.8 -c 4
+#  - name: Install apt packages
+#    apt:
+#      pkg: "{{ item }}"
+#      state: "present"
+#      update_cache: yes
+#    with_items: "{{ packages }}"
+  - name: configuration modules
+    template: src=./template/modules.template dest=/etc/modules
+    notify: 
+    - restart ntp
+  handlers:
+    - name: restart ntp
+      service: name=ntp state=restarted
+- hosts: infra1 
+  remote_user: root
+  tasks:
+  - name: conf interface
+    template: src=./template/infra1.interface.temp dest=/etc/interfaces
+    notify:
+    - echo hello
+  handlers:
+    - name: echo hello
+      shell: "/bin/echo hello" 
+- hosts: infra2
+  remote_user: root
+  tasks:
+  - name: conf interface
+    template: src=./template/infra2.interface.temp dest=/etc/interfaces
+    notify:
+    - echo hello
+  handlers:
+    - name: echo hello
+      shell: "/bin/echo hello"
+- hosts: infra3
+  remote_user: root
+  tasks:
+  - name: conf interface
+    template: src=./template/infra3.interface.temp dest=/etc/interfaces
+    notify:
+    - echo hello
+  handlers:
+    - name: echo hello
+      shell: "/bin/echo hello"
+- hosts: compute1
+  remote_user: root
+  tasks:
+  - name: conf interface
+    template: src=./template/compute1.interface.temp dest=/etc/interfaces
+    notify:
+    - echo hello
+  handlers:
+    - name: echo hello
+      shell: "/bin/echo hello"
+- hosts: compute2
+  remote_user: root
+  tasks:
+  - name: conf interface
+    template: src=./template/compute2.interface.temp dest=/etc/interfaces
+    notify:
+    - echo hello
+  - name: make nfs dir
+    file: "dest=/images mode=777 state=directory"
+#  - name: change mode
+#    file: "dest=/images mode=777"
+  - name: install nfs
+    apt:
+      pkg: "vlan"
+      state: "present"
+      update_cache: yes
+  - name: conf nfs
+    template: src=./template/export.template dest=/etc/exports
+    notify:
+    - restart nfs  
+  handlers:
+    - name: echo hello
+      shell: "/bin/echo hello"
+    - name: restart nfs
+      shell: "/bin/echo hello"
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
