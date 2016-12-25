@@ -15,7 +15,8 @@ set -x
 function download_iso()
 {
     mkdir -p ${WORK_DIR}/cache
-    curl --connect-timeout 10 -o ${WORK_DIR}/cache/$IMAGE_NAME $IMAGE_URL
+#    curl --connect-timeout 10 -o ${WORK_DIR}/cache/$IMAGE_NAME $IMAGE_URL
+    cp $IMAGE_URL ${WORK_DIR}/cache/$IMAGE_NAME
 }
 
 
@@ -38,7 +39,10 @@ function get_host_macs() {
 
     echo $machines
 }
-
+function install_python(){
+   MGMT_IP=$1
+   ssh  $ssh_args root@$MGMT_IP apt-get install -y python
+}
 function wait_ok() {
     MGMT_IP=$1
     set +x
@@ -124,7 +128,16 @@ function launch_host_vms() {
     rm -rf meta-data user-data seed.iso
     wait_ok "${IPADDR_PREFIX}$((i+11))" 25
     root_auth_setup "${IPADDR_PREFIX}$((i+11))"
-#    let i=i+1
+    if [ "$OS_FAMILY"x == "Ubuntu16.04"x ]
+    then
+       install_python "${IPADDR_PREFIX}$((i+11))"
+    fi
+
+
+
+
+
+
 #done
 #    IFS=$old_ifs
 #    rm -rf meta-data user-data seed.iso
