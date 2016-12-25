@@ -17,5 +17,5 @@ export VIRT_CPUS=${VIRT_CPUS:-"8"}
 #export IMAGE_URL=${IMAGE_URL:-"https://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img"}
 export IMAGE_URL=${IMAGE_URL:-"file:///home/wtw/libvirt/prod.img"}
 export IMAGE_NAME=${IMAGE_NAME:-"prod.img"}
-export IPADDR_PREFIX=${IPADDR_PREFIX:-"192.168.200."}
+export IPADDR_PREFIX=${IPADDR_PREFIX:-"10.200.200."}
 

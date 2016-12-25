@@ -21,7 +21,7 @@
 ## Debug and Verbose options.
 debug: false
 
-haproxy_keepalived_external_vip_cidr: "192.168.200.220/32"
+haproxy_keepalived_external_vip_cidr: "10.200.200.220/32"
 haproxy_keepalived_internal_vip_cidr: "172.29.236.222/32"
 haproxy_keepalived_external_interface: br-vlan
 haproxy_keepalived_internal_interface: br-mgmt

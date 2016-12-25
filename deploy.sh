@@ -50,7 +50,6 @@ if [ $? -eq 0 ]; then
     exit 1
 fi
 
-'''
 
 openstack-ansible setup-infrastructure.yml | tee /home/setup-infrastructure.log
 
@@ -75,5 +74,3 @@ if [ $? -eq 0 ]; then
     echo "failed retry!"
     exit 1
 fi
-
-'''
