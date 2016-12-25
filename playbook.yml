@@ -4,8 +4,6 @@
   vars_files:
     - ./var/ubuntu.yml
   tasks:
-  - name: ping
-    shell: /bin/ping 8.8.8.8 -c 4
 #  - name: change source.list
 #    template: src=./template/source-list.temp dest=/etc/apt/sources.list
 #    when: change_source | match("true")
@@ -84,3 +82,8 @@
       shell: "/sbin/ifdown -a && /sbin/ifup -a && /sbin/ifconfig ens3 0"
     - name: restart nfs
       service: name=nfs-kernel-server state=restarted
+- hosts: all
+  remote_user: root
+  tasks:
+  - name: update apt
+    shell: "/usr/bin/apt-get update"

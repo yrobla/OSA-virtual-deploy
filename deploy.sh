@@ -50,8 +50,8 @@ if [ $? -eq 0 ]; then
     exit 1
 fi
 
-
 '''
+
 openstack-ansible setup-infrastructure.yml | tee /home/setup-infrastructure.log
 
 grep "failed=1" /home/setup-infrastructure.log>/dev/null
