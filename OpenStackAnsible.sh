@@ -1,12 +1,15 @@
 #!/bin/bash
 
 cd $PLAYBOOK_PATH
+#cd /opt/openstack-ansible/playbooks  #test
+
 figlet -ctf slant Set UP Host !
 
 openstack-ansible setup-hosts.yml | tee /home/setup-host.log
 
 grep "unreachable=1" /home/setup-host.log>/dev/null
 if [ $? -eq 0 ]; then
+ echo "hello world"
     openstack-ansible setup-hosts.yml | tee /home/setup-host.log
 fi
 
@@ -37,15 +40,15 @@ fi
 
 figlet -ctf slant Set UP OpenStack !
 i=0
-for i < 5
+for i in {1..5}
 do
   openstack-ansible setup-openstack.yml | tee  /home/setup-openstack.log
-  i=i+1
   grep "failed=1" /home/setup-openstack.log>/dev/null
   if [ $? -eq 0 ]; then
-      echo "failed retry setup-openstack $1!"
+      echo "failed retry setup-openstack $i!"
       continue
   else 
+      echo "hello"
       break
   fi
 done

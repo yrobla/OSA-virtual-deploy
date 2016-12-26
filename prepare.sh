@@ -29,9 +29,11 @@ fi
 
 virsh net-list | awk '{print $1}' | grep prod
 #if [ "$netname"x -eq ""x ]; then
-if [ $? -ne 0 ]; then
-  virsh net-create $WORK_PATH/prod.xml
+if [ $? -eq 0 ]; then
+  virsh net-destroy prod
 fi
+
+virsh net-create $WORK_PATH/prod.xml
 
 /sbin/ifconfig | grep prodnetbr.10
 if [ $? -ne 0 ]; then
