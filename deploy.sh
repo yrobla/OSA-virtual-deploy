@@ -7,15 +7,20 @@ source ./var/env_var.sh
 source ./prepare.sh
 
 set -x
+
+rm -rf $OSA_PATH
 git clone https://git.openstack.org/openstack/openstack-ansible $OSA_PATH
 
 cd $OSA_PATH
 ./scripts/bootstrap-ansible.sh
-cd opt/openstack-ansible/scripts/
-python ./scripts/pw-token-gen.py --file /etc/openstack_deploy/user_secrets.yml
+rm -rf $OSA_ETC_PATH
+cp -r $OSA_PATH/etc/openstack_deploy $OSA_ETC_PATH
 
-cp -r $OSA_PATH/etc/openstack_deploy $OSA_ETC_PATH 
+cd /opt/openstack-ansible/scripts/
+python pw-token-gen.py --file /etc/openstack_deploy/user_secrets.yml
+
 cd $WORK_PATH
+
 pwd
 cp ./template/openstack_user_config.yml.temp $OSA_ETC_PATH/openstack_user_config.yml
 
