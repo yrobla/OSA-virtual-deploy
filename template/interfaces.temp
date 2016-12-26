@@ -1,18 +1,3 @@
-# This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces(5).
-
-# The loopback network interface
-auto lo
-iface lo inet loopback
-
-#auto p4p1
-#iface eth0 inet static
-#address 192.168.83.2
-#netmask 255.255.255.0
-#gateway 192.168.83.250
-#dns-nameservers 8.8.8.8
-#auto prodnetbr
-#iface prodnetbr inet manual
 
 auto prodnetbr.10
 iface prodnetbr.10 inet manual

@@ -19,7 +19,7 @@ if [ ! -d "$IMAGE_PATH" ]; then
 fi
 
 if [ ! -f "$RSA_PATH" ]; then
- ./gensshkey
+/usr/bin/expect gensshkey
 fi
 if [ ! -f "$IMAGE_URL" ]; then 
   wget https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img
@@ -37,7 +37,8 @@ virsh net-create $WORK_PATH/prod.xml
 
 /sbin/ifconfig | grep prodnetbr.10
 if [ $? -ne 0 ]; then
-  cp $TEMPLATEI_PATH/interfaces.temp /etc/network/interfaces
+#  cp $TEMPLATEI_PATH/interfaces.temp /etc/network/interfaces
+  cat $TEMPLATEI_PATH/interfaces.temp >> /etc/network/interfaces
   ifdown  -a && ifup -a 
 fi
 
