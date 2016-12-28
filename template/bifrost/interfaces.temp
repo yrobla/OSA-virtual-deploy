@@ -1,3 +1,5 @@
+auto lo
+iface lo inet loopback
 
 auto virbr0.10
 iface virbr0.10 inet manual
