@@ -24,7 +24,7 @@ fi
 if [ ! -f "$IMAGE_URL" ]; then 
   wget https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img
   mv ./xenial-server-cloudimg-amd64-disk1.img $IMAGE_URL
-  qemu-img resize $IMAGE_URL +100GB
+  qemu-img resize $IMAGE_URL +60GB
 fi
 
 virsh net-list | awk '{print $1}' | grep prod
@@ -35,17 +35,23 @@ fi
 
 virsh net-create $WORK_PATH/prod.xml
 
-/sbin/ifconfig | grep prodnetbr.10
+grep -Rn prodnetbr.10 /etc/network/interfaces
 if [ $? -ne 0 ]; then
 #  cp $TEMPLATEI_PATH/interfaces.temp /etc/network/interfaces
   cat $TEMPLATEI_PATH/interfaces.temp >> /etc/network/interfaces
-  ifdown  -a && ifup -a 
+  ifdown  -a && ifup -a
 fi
 
-grep "host_key_checking = False" /etc/ansible/ansible.cfg
-if [ $? -ne 0 ]; then
-  echo "[defaults]" >> /etc/ansible/ansible.cfg
-  echo "host_key_checking = False" >> /etc/ansible/ansible.cfg
+
+varhost_key=$(grep "host_key_checking = False" /etc/ansible/ansible.cfg)
+vardefault=$(grep "defaults" /etc/ansible/ansible.cfg)
+echo $vardefault
+if [ "$vardefault"x != "[defaults]"x ]; then
+  echo -e "[defaults]\nhost_key_checking = False" > /etc/ansible/ansible.cfg
+else
+  if [ "$varhost_key"x != "host_key_checking = False"x ]; then
+    sed -i '/\[defaults\]/a\host_key_checking = False' /etc/ansible/ansible.cfg
+  fi
 fi
 
 cd $LAUNCH_VM_PATH
