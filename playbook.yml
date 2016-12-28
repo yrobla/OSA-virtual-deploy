@@ -24,7 +24,7 @@
   remote_user: root
   tasks:
   - name: conf interface
-    template: src=./template/infra1.interface.temp dest=/etc/network/interfaces
+    template: src=./template/bifrost/infra1.interface.temp dest=/etc/network/interfaces
     notify:
     - restart network
   handlers:
@@ -34,7 +34,7 @@
   remote_user: root
   tasks:
   - name: conf interface
-    template: src=./template/infra2.interface.temp dest=/etc/network/interfaces
+    template: src=./template/bifrost/infra2.interface.temp dest=/etc/network/interfaces
     notify:
     - restart network
   handlers:
@@ -44,7 +44,7 @@
   remote_user: root
   tasks:
   - name: conf interface
-    template: src=./template/infra3.interface.temp dest=/etc/network/interfaces
+    template: src=./template/bifrost/infra3.interface.temp dest=/etc/network/interfaces
     notify:
     - restart network
   handlers:
@@ -54,7 +54,7 @@
   remote_user: root
   tasks:
   - name: conf interface
-    template: src=./template/compute1.interface.temp dest=/etc/network/interfaces
+    template: src=./template/bifrost/compute1.interface.temp dest=/etc/network/interfaces
     notify:
     - restart network
   handlers:
@@ -64,7 +64,7 @@
   remote_user: root
   tasks:
   - name: conf interface
-    template: src=./template/compute2.interface.temp dest=/etc/network/interfaces
+    template: src=./template/bifrost/compute2.interface.temp dest=/etc/network/interfaces
     notify:
     - restart network
   - name: make nfs dir
@@ -82,8 +82,8 @@
       shell: "/sbin/ifdown -a && /sbin/ifup -a && /sbin/ifconfig ens3 0"
     - name: restart nfs
       service: name=nfs-kernel-server state=restarted
-- hosts: all
-  remote_user: root
-  tasks:
-  - name: update apt
-    shell: "/usr/bin/apt-get update"
+#- hosts: all
+#  remote_user: root
+#  tasks:
+#  - name: update apt
+#    shell: "/usr/bin/apt-get update"
