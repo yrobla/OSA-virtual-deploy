@@ -29,7 +29,8 @@
     - restart network
   handlers:
     - name: restart network
-      shell: "/sbin/ifdown -a && /sbin/ifup -a && /sbin/ifconfig ens3 0"
+      shell: "/sbin/ifconfig ens3 0 &&/sbin/ifdown -a && /sbin/ifup -a"
+#      shell: "/bin/echo hello"
 - hosts: infra2
   remote_user: root
   tasks:
@@ -39,7 +40,8 @@
     - restart network
   handlers:
     - name: restart network
-      shell: "/sbin/ifdown -a && /sbin/ifup -a && /sbin/ifconfig ens3 0"
+      shell: "/sbin/ifconfig ens3 0 &&/sbin/ifdown -a && /sbin/ifup -a"
+#      shell: "/bin/echo hello"
 - hosts: infra3
   remote_user: root
   tasks:
@@ -49,7 +51,8 @@
     - restart network
   handlers:
     - name: restart network
-      shell: "/sbin/ifdown -a && /sbin/ifup -a && /sbin/ifconfig ens3 0"
+#      shell: "/bin/echo hello"
+      shell: "/sbin/ifconfig ens3 0 &&/sbin/ifdown -a && /sbin/ifup -a"
 - hosts: compute1
   remote_user: root
   tasks:
@@ -59,7 +62,7 @@
     - restart network
   handlers:
     - name: restart network 
-      shell: "/sbin/ifdown -a && /sbin/ifup -a && /sbin/ifconfig ens3 0"
+      shell: "/sbin/ifconfig ens3 0 &&/sbin/ifdown -a && /sbin/ifup -a"
 - hosts: compute2
   remote_user: root
   tasks:
@@ -79,7 +82,7 @@
     - restart nfs  
   handlers:
     - name: restart network 
-      shell: "/sbin/ifdown -a && /sbin/ifup -a && /sbin/ifconfig ens3 0"
+      shell: "/sbin/ifconfig ens3 0 &&/sbin/ifdown -a && /sbin/ifup -a"
     - name: restart nfs
       service: name=nfs-kernel-server state=restarted
 #- hosts: all

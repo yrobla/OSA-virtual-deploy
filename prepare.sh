@@ -37,7 +37,7 @@ apt-get install bridge-utils debootstrap expect \
 
 #i/sbin/ifconfig | grep prodnetbr.10
 if [ $? -ne 0 ]; then
-  cp $TEMPLATEI_PATH/interfaces.temp /etc/network/interfaces
+  cp $TEMPLATEI_PATH/bifrost/interfaces.temp /etc/network/interfaces
 #  cat $TEMPLATEI_PATH/interfaces.temp >> /etc/network/interfaces
   ifdown  -a && ifup -a 
 fi
