@@ -4,9 +4,6 @@
   vars_files:
     - ./var/ubuntu.yml
   tasks:
-#  - name: change source.list
-#    template: src=./template/source-list.temp dest=/etc/apt/sources.list
-#    when: change_source | match("true")
   - name: Install apt packages
     apt:
       pkg: "{{ item }}"
@@ -30,7 +27,7 @@
   handlers:
     - name: restart network
       shell: "/sbin/ifconfig ens3 0 &&/sbin/ifdown -a && /sbin/ifup -a"
-#      shell: "/bin/echo hello"
+
 - hosts: infra2
   remote_user: root
   tasks:
@@ -41,7 +38,7 @@
   handlers:
     - name: restart network
       shell: "/sbin/ifconfig ens3 0 &&/sbin/ifdown -a && /sbin/ifup -a"
-#      shell: "/bin/echo hello"
+
 - hosts: infra3
   remote_user: root
   tasks:
@@ -51,8 +48,8 @@
     - restart network
   handlers:
     - name: restart network
-#      shell: "/bin/echo hello"
       shell: "/sbin/ifconfig ens3 0 &&/sbin/ifdown -a && /sbin/ifup -a"
+
 - hosts: compute1
   remote_user: root
   tasks:
@@ -63,6 +60,7 @@
   handlers:
     - name: restart network 
       shell: "/sbin/ifconfig ens3 0 &&/sbin/ifdown -a && /sbin/ifup -a"
+
 - hosts: compute2
   remote_user: root
   tasks:
@@ -85,8 +83,3 @@
       shell: "/sbin/ifconfig ens3 0 &&/sbin/ifdown -a && /sbin/ifup -a"
     - name: restart nfs
       service: name=nfs-kernel-server state=restarted
-#- hosts: all
-#  remote_user: root
-#  tasks:
-#  - name: update apt
-#    shell: "/usr/bin/apt-get update"

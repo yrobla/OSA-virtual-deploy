@@ -32,4 +32,3 @@ ansible-playbook -i inventory playbook.yml #: e "change_source=true" -e pipeline
 
 source ./OpenStackAnsible.sh
 
-#source ./test.sh
