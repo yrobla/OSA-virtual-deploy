@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cd $PLAYBOOK_PATH
-#cd /opt/openstack-ansible/playbooks  #test
+#cd $PLAYBOOK_PATH
+cd /opt/openstack-ansible/playbooks  #test
 
 figlet -ctf slant Set UP Host !
 

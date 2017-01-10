@@ -7,3 +7,5 @@ export RSA_PATH=/root/.ssh/id_dsa
 export OSA_PATH=/opt/openstack-ansible
 export OSA_ETC_PATH=/etc/openstack_deploy
 export PLAYBOOK_PATH=$OSA_PATH/playbooks
+export BIFROST_PATH=/opt/bifrost
+export CLEAN_DIB_IMAGES=true
