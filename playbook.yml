@@ -30,26 +30,6 @@
   handlers:
     - name: restart network
       shell: "/sbin/ifdown -a && /sbin/ifup -a && /sbin/ifconfig ens3 0"
-- hosts: infra2
-  remote_user: root
-  tasks:
-  - name: conf interface
-    template: src=./template/infra2.interface.temp dest=/etc/network/interfaces
-    notify:
-    - restart network
-  handlers:
-    - name: restart network
-      shell: "/sbin/ifdown -a && /sbin/ifup -a && /sbin/ifconfig ens3 0"
-- hosts: infra3
-  remote_user: root
-  tasks:
-  - name: conf interface
-    template: src=./template/infra3.interface.temp dest=/etc/network/interfaces
-    notify:
-    - restart network
-  handlers:
-    - name: restart network
-      shell: "/sbin/ifdown -a && /sbin/ifup -a && /sbin/ifconfig ens3 0"
 - hosts: compute1
   remote_user: root
   tasks:
@@ -60,28 +40,6 @@
   handlers:
     - name: restart network 
       shell: "/sbin/ifdown -a && /sbin/ifup -a && /sbin/ifconfig ens3 0"
-- hosts: compute2
-  remote_user: root
-  tasks:
-  - name: conf interface
-    template: src=./template/compute2.interface.temp dest=/etc/network/interfaces
-    notify:
-    - restart network
-  - name: make nfs dir
-    file: "dest=/images mode=777 state=directory"
-  - name: install nfs
-    apt:
-      pkg: "nfs-kernel-server"
-      state: "present"
-  - name: conf nfs
-    template: src=./template/export.template dest=/etc/exports
-    notify:
-    - restart nfs  
-  handlers:
-    - name: restart network 
-      shell: "/sbin/ifdown -a && /sbin/ifup -a && /sbin/ifconfig ens3 0"
-    - name: restart nfs
-      service: name=nfs-kernel-server state=restarted
 - hosts: all
   remote_user: root
   tasks:
